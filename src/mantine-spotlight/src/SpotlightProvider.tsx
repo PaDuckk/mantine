@@ -78,8 +78,16 @@ export function SpotlightProvider({
     },
   });
 
+  const handleOpen = (_query) => {
+    if (typeof _query === 'string') {
+      setQuery(_query ?? '');
+    }
+
+    open();
+  };
+
   const ctx = {
-    openSpotlight: open,
+    openSpotlight: handleOpen,
     closeSpotlight: close,
     toggleSpotlight: toggle,
     registerActions,
@@ -91,7 +99,14 @@ export function SpotlightProvider({
   };
 
   useSpotlightShortcuts(shortcut, open, tagsToIgnore);
-  useSpotlightEvents({ open, close, toggle, registerActions, removeActions, triggerAction });
+  useSpotlightEvents({
+    open: handleOpen,
+    close,
+    toggle,
+    registerActions,
+    removeActions,
+    triggerAction,
+  });
 
   return (
     <SpotlightContext.Provider value={ctx}>

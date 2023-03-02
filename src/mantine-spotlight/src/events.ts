@@ -2,7 +2,7 @@ import { createUseExternalEvents } from '@mantine/utils';
 import type { SpotlightAction } from './types';
 
 export type SpotlightEvents = {
-  open(): void;
+  open(query?: string): void;
   close(): void;
   toggle(): void;
   triggerAction(id: string): void;
